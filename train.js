@@ -53,31 +53,28 @@ database.ref().on("child_added", function(snapshot) {
 
 });
 
-var nextArrival = moment($.now()).format('hh:mm a');
+// identify necessary variables
+// Next Arrival = time + frequency
+// Minutes Away
+
+var nextArrival = moment($("#time").val().trim(), "hh:mm a").add(frequency).format("hh:mm a");
     
-    var minutesAway = moment(snapshot.val().time).format('hh:mm a');
-    moment($.now()).format('m');
-    moment(nextArrival).diff(convertedTime, 'minutes');
-    console.log("minutes away:  " + minutesAway)
-
-    var convertedTime = moment(snapshot.val().time).format('hh:mm a');
-    console.log("next to arrive:  " + convertedTime)
-   
-  
+var minutesAway = moment(snapshot.val().time).format('hh:mm a');
+ 
     // build and append the minutes away
-    tempCell.text(minutesAway);
+    tempCell.text(nextArrival);
     newRow.append(tempCell);
     tempCell = $("<td>");   // cell must be reset for the next cell to be built
 
-    // build and append the next to arrive
-    tempCell.text("$" + snapshot.val().nextArrival);
-    newRow.append(tempCell);
-    tempCell = $("<td>");   // cell must be reset for the next cell to be built
+    // // build and append the next to arrive
+    // tempCell.text("$" + snapshot.val().nextArrival);
+    // newRow.append(tempCell);
+    // tempCell = $("<td>");   // cell must be reset for the next cell to be built
 
     // build and append 
-    var frequencyInt = parseInt(snapshot.val().frequency)
-    tempCell.text("$" + (minutesAway * frequencyInt));
+    tempCell.text(minutesAway);
     newRow.append(tempCell);
+    tempCell = $("<td>"); 
 });
 
 });
