@@ -1,0 +1,10 @@
+#jumbotron {
+    color: white;
+    background-image: url("images/train5.jpg");
+  }
+
+.card-header {
+    background-color: rgb(131, 178, 231);
+    color: white;
+    /* font-family: ; */
+  }
