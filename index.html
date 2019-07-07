@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Schedule</title>
+    <!-- link to bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- link to css page -->
+    <link rel="stylesheet" href="style.css">
+    <!-- link to jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Firebase References -->
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+  <!-- Moment.js Reference -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+
+
+</head>
+<body>
+<div class="container">
+        <div class="col">
+            <div class="jumbotron text-center">
+                <h1>Anytime is Train Time</h1>
+                <p><h3>Can I code this? I think I can, I think I can..</h3></p>
+            </div>
+        </div>
+  
+    <div class="card">
+            <div class="card-header">
+              Train Schedule
+            </div>
+  <div class="card-body">
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <th scope=col">Train Name</th>
+                    <th scope=col">Destination</th>
+                    <th scope=col">Frequency (mins)</th>
+                    <th scope=col">Next Arrival</th>
+                    <th scope=col">Minutes Away</th>
+                </thead>
+                <tbody id="train-table">
+                    <tr>
+                        <td>Thomas</td>
+                        <td>30th Street</td>
+                        <td>xx</td>
+                        <td>xx</td>
+                        <td>xx</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+    </div>
+
+<div class="card">
+<div class="card-header">
+              Add Train
+            </div>
+<div class="card-body">
+    <div class="row">
+        <div class="col">
+            <form class="p-2 border rounded-sm">
+                <div class="form-group">
+                    <label for="name">Train Name</label>
+                    <input class="form-control" type="text" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input class="form-control" type="text" id="destination">
+                </div>
+                <div class="form-group">
+                    <label for="time">First Train Time (hh:mm - military time)</label>
+                    <input class="form-control" type="time" id="time">
+                </div>
+                <div class="form-group">
+                    <label for="frequency">Frequency (min)</label>
+                    <input class="form-control" type="number" id="frequency">
+                </div>
+                <button id="add-new" type="button" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- link to javascript -->
+<script src="train.js"></script>
+
+</body>
+</html>
