@@ -4,7 +4,7 @@ var config = {
     databaseURL: "https://first-project-f407a.firebaseio.com",
     storageBucket: "",
   };
-
+// intialize firebase
 firebase.initializeApp(config);
 
 // Create a variable to reference the database.
@@ -14,14 +14,23 @@ console.log(database);
 
 $( document ).ready(function() {
 
+// on Submit push to database
 $("#add-new").on("click", function(event) {
     console.log('submit clicked');
+// prevent form from trying to submit/refresh the page
     event.preventDefault();
 
     var name = $("#name").val().trim();
     var destination = $("#destination").val().trim();
-    var frequency = $("#frequency").val().trim();
-    var time = $("#time").val().trim();
+    var frequency = moment($("#frequency").val().trim(), 'minutes');
+    var time = moment($("#time").val().trim(), "hh:mm a");
+
+// Console log each of the user inputs to confirm we are receiving them
+     console.log(name);
+     console.log(destination);
+     console.log(time);
+     console.log(frequency);
+
 
     database.ref().push({
         name,
@@ -29,52 +38,54 @@ $("#add-new").on("click", function(event) {
         frequency,
         time,
       });
+    //   $("form")[0].reset();
+    });
 
+// reference the data in Firebase and add row in html when new train is added
+database.ref().on("child_added", function(childSnapshot) {
+    console.log(childSnapshot.val());
 
-database.ref().on("child_added", function(snapshot) {
     var newRow = $("<tr>");
     var tempCell = $("<td>");
-    tempCell.text(snapshot.val().name);
+    var now = moment();
+    var nextArrival = moment(time).add(frequency).format('hh:mm a');
+    var minutesAway = moment(nextArrival).diff(now).format('minutes');
+    var minutesAway2 = nextArrival.diff(now, "minutes");
+    console.log(minutesAway);
+    console.log(minutesAway2);
+    console.log(nextArrival);
+
+// append new train name
+    tempCell.text(childSnapshot.val().name);
     newRow.append(tempCell);
     tempCell = $("<td>");
-    tempCell.text(snapshot.val().destination);
+
+// append destination
+    tempCell.text(childSnapshot.val().destination);
     newRow.append(tempCell);
     tempCell = $("<td>");
-    tempCell.text(snapshot.val().frequency);
+
+// append frequency
+    tempCell.text(childSnapshot.val().frequency);
     newRow.append(tempCell);
-    // tempCell = $("<td>");
-    // tempCell.text(snapshot.val().time);
-    // newRow.append(tempCell);
-    // tempCell = $("<td>");
-    // tempCell.text('X');
-    // newRow.append(tempCell);
-    
+    tempCell = $("<td>");
+
+// calculate and append next arrival time using moment js
+    tempCell.text(childSnapshot.val().nextArrival);
+    newRow.append(tempCell);
+    tempCell = $("<td>");
+
+// calculate and append minutes away using moment js
+    tempCell.text(childSnapshot.val().minutesAway);
+    newRow.append(tempCell);
+    tempCell = $("<td>");
+
+  
+// append new row to table 
     $("#train-table").append(newRow);
 
 });
 
-// identify necessary variables
-// Next Arrival = time + frequency
-// Minutes Away
-
-var nextArrival = moment($("#time").val().trim(), "hh:mm a").add(frequency).format("hh:mm a");
-    
-var minutesAway = moment(snapshot.val().time).format('hh:mm a');
- 
-    // build and append the minutes away
-    tempCell.text(nextArrival);
-    newRow.append(tempCell);
-    tempCell = $("<td>");   // cell must be reset for the next cell to be built
-
-    // // build and append the next to arrive
-    // tempCell.text("$" + snapshot.val().nextArrival);
-    // newRow.append(tempCell);
-    // tempCell = $("<td>");   // cell must be reset for the next cell to be built
-
-    // build and append 
-    tempCell.text(minutesAway);
-    newRow.append(tempCell);
-    tempCell = $("<td>"); 
-});
 
 });
+
