@@ -35,7 +35,40 @@
                 <p><h3>Can I code this? I think I can, I think I can..</h3></p>
             </div>
         </div>
- <!-- Train Schedule Table  -->
+ 
+ <!-- Add New Train Form -->
+<div class="card">
+    <div class="card-header">
+                  Add Train
+                </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <form class="p-2 border rounded-sm">
+                    <div class="form-group">
+                        <label for="name">Train Name</label>
+                        <input class="form-control" type="text" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input class="form-control" type="text" id="destination">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">First Train Time (hh:mm - military time)</label>
+                        <input class="form-control" type="time" id="time">
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency">Frequency (min)</label>
+                        <input class="form-control" type="number" id="frequency">
+                    </div>
+                    <button id="add-new" type="button" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+  
+        <!-- Train Schedule Table  -->
     <div class="card">
             <div class="card-header">
               Train Schedule
@@ -60,42 +93,14 @@
                         <td>xx</td>
                     </tr>
                 </tbody>
+            
             </table>
+            <button id="add-new" type="button" class="btn btn-primary">Clear</button>
         </div>
         </div>
         </div>
     </div>
-<!-- Add New Train Form -->
-<div class="card">
-<div class="card-header">
-              Add Train
-            </div>
-<div class="card-body">
-    <div class="row">
-        <div class="col">
-            <form class="p-2 border rounded-sm">
-                <div class="form-group">
-                    <label for="name">Train Name</label>
-                    <input class="form-control" type="text" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="destination">Destination</label>
-                    <input class="form-control" type="text" id="destination">
-                </div>
-                <div class="form-group">
-                    <label for="time">First Train Time (hh:mm - military time)</label>
-                    <input class="form-control" type="time" id="time">
-                </div>
-                <div class="form-group">
-                    <label for="frequency">Frequency (min)</label>
-                    <input class="form-control" type="number" id="frequency">
-                </div>
-                <button id="add-new" type="button" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
+
 </div>
 
 <!-- link to javascript file-->

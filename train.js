@@ -22,9 +22,9 @@ $("#add-new").on("click", function(event) {
 
     var name = $("#name").val().trim();
     var destination = $("#destination").val().trim();
-    var frequency = moment($("#frequency").val().trim(), 'minutes');
-    var time = moment($("#time").val().trim(), "hh:mm a");
-
+    var frequency = $("#frequency").val().trim();
+    var time = $("#time").val().trim();
+   
 // Console log each of the user inputs to confirm we are receiving them
      console.log(name);
      console.log(destination);
@@ -45,38 +45,47 @@ $("#add-new").on("click", function(event) {
 database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
 
-    var newRow = $("<tr>");
-    var tempCell = $("<td>");
-    var now = moment();
-    var nextArrival = moment(time).add(frequency).format('hh:mm a');
-    var minutesAway = moment(nextArrival).diff(now).format('minutes');
-    var minutesAway2 = nextArrival.diff(now, "minutes");
-    console.log(minutesAway);
-    console.log(minutesAway2);
-    console.log(nextArrival);
-
 // append new train name
-    tempCell.text(childSnapshot.val().name);
-    newRow.append(tempCell);
-    tempCell = $("<td>");
+var newRow = $("<tr>");
+var tempCell = $("<td>");
+
+tempCell.text(childSnapshot.val().name);
+newRow.append(tempCell);
+tempCell = $("<td>");
 
 // append destination
-    tempCell.text(childSnapshot.val().destination);
-    newRow.append(tempCell);
-    tempCell = $("<td>");
+tempCell.text(childSnapshot.val().destination);
+newRow.append(tempCell);
+tempCell = $("<td>");
 
 // append frequency
-    tempCell.text(childSnapshot.val().frequency);
-    newRow.append(tempCell);
-    tempCell = $("<td>");
+tempCell.text(childSnapshot.val().frequency);
+newRow.append(tempCell);
+tempCell = $("<td>");
+
+
+// create variables and calculate minutes away and next arrival time
+// append those 2 items to table
+    var minutesAway = 0;
+
+    var time = (childSnapshot.val().time);
+    var freq = (childSnapshot.val().frequency);
+
+
+    var nextArrival = moment(time, 'HH:mm').add(freq, 'minutes').format("HH:mm");
+
+   
+    console.log(minutesAway);
+    console.log(nextArrival);
+
 
 // calculate and append next arrival time using moment js
-    tempCell.text(childSnapshot.val().nextArrival);
+    tempCell.text(nextArrival);
     newRow.append(tempCell);
     tempCell = $("<td>");
 
 // calculate and append minutes away using moment js
-    tempCell.text(childSnapshot.val().minutesAway);
+    tempCell.text(minutesAway);
     newRow.append(tempCell);
     tempCell = $("<td>");
 
