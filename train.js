@@ -45,6 +45,16 @@ $("#add-new").on("click", function(event) {
 database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
 
+
+// store in variable
+    // var trainTime = childSnapshot.val().time;
+    var trainFrequency = childSnapshot.val().frequency;
+
+    
+    var trainFrequency;
+    var firstTime = 0;
+     
+
 // append new train name
 var newRow = $("<tr>");
 var tempCell = $("<td>");
@@ -66,24 +76,25 @@ tempCell = $("<td>");
 // create variables and calculate minutes away and next arrival time
 // append those 2 items to table
 // subtract 1 year to always make sure the time input is prior to next arrival
-var time = 0;
 
-var timeConverted = moment(time, 'HH:mm').subtract(1, 'years');
+
+var firstTimeConverted = moment(firstTime, 'HH:mm').subtract(1, 'years');
+console.log(firstTimeConverted);
 
 var currentTime = moment();
 console.log(currentTime);
 
-var diffTime = moment().diff(moment(timeConverted), 'minutes');
+var diffTime = moment().diff(moment(firstTimeConverted), 'minutes');
 console.log(diffTime);
 
-var remainder = diffTime % frequency;
+var remainder = diffTime % trainFrequency;
 console.log(remainder);
 
-var minutesAway = frequency - remainder;
+var minutesAway = trainFrequency - remainder;
 
-var nextArrival = currentTime + minutesAway;
+var nextArrival = moment().add(minutesAway, 'minutes');
 console.log(nextArrival);
-
+// var nextTrain = moment().add(tMinutesTillTrain, "minutes");
 
 // calculate and append next arrival time using moment js
     tempCell.text(nextArrival);
