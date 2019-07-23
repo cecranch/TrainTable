@@ -38,7 +38,7 @@ $("#add-new").on("click", function(event) {
         frequency,
         time,
       });
-    //   $("form")[0].reset();
+    //   $("form")[0].reset(); try clearing table by using id and .val('')
     });
 
 // reference the data in Firebase and add row in html when new train is added
@@ -63,20 +63,26 @@ tempCell.text(childSnapshot.val().frequency);
 newRow.append(tempCell);
 tempCell = $("<td>");
 
-
 // create variables and calculate minutes away and next arrival time
 // append those 2 items to table
-    var minutesAway = 0;
+// subtract 1 year to always make sure the time input is prior to next arrival
+var time = 0;
 
-    var time = (childSnapshot.val().time);
-    var freq = (childSnapshot.val().frequency);
+var timeConverted = moment(time, 'HH:mm').subtract(1, 'years');
 
+var currentTime = moment();
+console.log(currentTime);
 
-    var nextArrival = moment(time, 'HH:mm').add(freq, 'minutes').format("HH:mm");
+var diffTime = moment().diff(moment(timeConverted), 'minutes');
+console.log(diffTime);
 
-   
-    console.log(minutesAway);
-    console.log(nextArrival);
+var remainder = diffTime % frequency;
+console.log(remainder);
+
+var minutesAway = frequency - remainder;
+
+var nextArrival = currentTime + minutesAway;
+console.log(nextArrival);
 
 
 // calculate and append next arrival time using moment js
@@ -93,6 +99,12 @@ tempCell = $("<td>");
 // append new row to table 
     $("#train-table").append(newRow);
 
+});
+
+// Clear button to clear table once complete
+
+$('#clear').click(function(){
+    document.getElementById("train-table").innerHTML = "";
 });
 
 
